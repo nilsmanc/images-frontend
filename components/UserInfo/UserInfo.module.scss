@@ -1,0 +1,20 @@
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    'a n'
+    'a b';
+  margin: 50px 0;
+}
+
+.name {
+  grid-area: n;
+}
+
+.avatar {
+  border-radius: 300px;
+  grid-area: a;
+}
+
+.bio {
+  grid-area: b;
+}
