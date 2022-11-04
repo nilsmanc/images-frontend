@@ -18,7 +18,7 @@ export default function Home() {
     dispatch(fetchPosts())
     //@ts-ignore
     dispatch(fetchTags())
-  })
+  }, [])
   return (
     <div className={styles.container}>
       <Head>
