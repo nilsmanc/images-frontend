@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar'
 import styles from './Registration.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth } from '../../redux/slices/auth'
-import { fetchRegister } from '../../redux/slices/asyncActions'
+import { fetchRegister } from '../../redux/asyncActions'
 import { useRouter } from 'next/router'
 
 const Registration = () => {

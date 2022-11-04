@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth } from '../../redux/slices/auth'
-import { fetchAuth } from '../../redux/slices/asyncActions'
+import { fetchAuth } from '../../redux/asyncActions'
 import { useRouter } from 'next/router'
 
 import styles from './Login.module.scss'

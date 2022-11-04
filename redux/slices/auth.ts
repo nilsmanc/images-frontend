@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchAuth, fetchAuthMe, fetchRegister } from './asyncActions'
+import { fetchAuth, fetchAuthMe, fetchRegister } from '../asyncActions'
 
 const initialState = {
   data: null,

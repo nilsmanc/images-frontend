@@ -3,7 +3,7 @@ import Footer from '../Footer'
 import Header from '../Header'
 
 import { useEffect } from 'react'
-import { fetchAuthMe } from '../../redux/slices/asyncActions'
+import { fetchAuthMe } from '../../redux/asyncActions'
 
 const Layout = ({ children }: any) => {
   const dispatch = useDispatch()
