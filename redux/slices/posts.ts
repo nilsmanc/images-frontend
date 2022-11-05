@@ -41,7 +41,7 @@ const postsSlice = createSlice({
       state.tags.items = []
       state.tags.status = 'error'
     })
-    builder.addCase(fetchRemovePost.fulfilled, (state, action) => {
+    builder.addCase(fetchRemovePost.pending, (state, action) => {
       state.posts.items = state.posts.items.filter((obj: any) => obj._id !== action.meta.arg)
     })
   },

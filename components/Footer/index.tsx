@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { useDispatch } from 'react-redux'
-import { logout } from '../../redux/slices/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout, selectId } from '../../redux/slices/auth'
 import styles from './Footer.module.scss'
 
 const Footer = () => {
@@ -16,7 +16,7 @@ const Footer = () => {
         <Link href='/'>Main</Link>
         <Link href='/people'>People</Link>
         <Link href='/settings'>Setting</Link>
-        <Link href='/profile'>Profile</Link>
+        <Link href={`/profile`}>Profile</Link>
         <Link href='/login'>Login</Link>
         <Link href='/registration'>Registration</Link>
         <button onClick={logoutHandler}>Logout</button>

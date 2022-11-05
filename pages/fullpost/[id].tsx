@@ -3,16 +3,23 @@ import { useState, useEffect } from 'react'
 import instance from '../../axios'
 import Post from '../../components/Post'
 
-const FullPost = () => {
+export const getServerSideProps = async (context) => {
+  const { id } = context.params
+  const response = await fetch(`http://localhost:4444/posts/${id}`)
+
+  const data = await response.json()
+
+  return { props: { image: data } }
+}
+
+const FullPost = ({ image }) => {
   const [data, setData] = useState()
   const [isLoading, setLoading] = useState(true)
 
-  const router = useRouter()
-  const { pid } = router.query
-
+  console.log(image)
   useEffect(() => {
     instance
-      .get(`posts/${pid}`)
+      .get(`posts/${image._id}`)
       .then((res) => {
         setData(res.data)
         setLoading(false)
@@ -23,9 +30,7 @@ const FullPost = () => {
       })
   }, [])
 
-  if (isLoading) {
-    return <Post isLoading={isLoading} />
-  }
+  return <Post isLoading={isLoading} imageUrl={image.imageUrl} id={image._id} />
 }
 
 export default FullPost

@@ -1,53 +1,22 @@
+import { getImageListItemBarUtilityClass } from '@mui/material'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Image from 'next/image'
-
-const photos = [
-  <Image
-    src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
-    alt='fog'
-    width={300}
-    height={300}
-  />,
-  <Image
-    src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
-    alt='fog'
-    width={300}
-    height={300}
-  />,
-  <Image
-    src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
-    alt='fog'
-    width={300}
-    height={300}
-  />,
-  <Image
-    src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
-    alt='fog'
-    width={300}
-    height={300}
-  />,
-  <Image
-    src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
-    alt='fog'
-    width={300}
-    height={300}
-  />,
-  <Image
-    src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
-    alt='fog'
-    width={300}
-    height={300}
-  />,
-]
+import { useSelector } from 'react-redux'
+import { postsSelector } from '../../redux/slices/posts'
+import Post from '../Post'
 
 const ImagesGrid = () => {
+  let array = useSelector(postsSelector)
+
+  const images = array.posts.items
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {photos.map((photo, i) => (
+        {images.map((image: any, i: number) => (
           <Grid key={i} item xs={4}>
-            {photo}
+            <Post imageUrl={image.imageUrl} id={image._id} />
           </Grid>
         ))}
       </Grid>

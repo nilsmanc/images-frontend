@@ -2,12 +2,28 @@ import Head from 'next/head'
 import Typography from '@mui/material/Typography'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
+import { useEffect } from 'react'
 
 import styles from './People.module.scss'
+import instance from '../../axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchPeople } from '../../redux/asyncActions'
+import { peopleSelector } from '../../redux/slices/people'
+import Link from 'next/link'
 
 const People = () => {
-  const people = ['Max', 'Ann', 'John']
+  const dispatch = useDispatch()
 
+  const data = useSelector(peopleSelector)
+  console.log(data)
+
+  const users = data.people.items
+  console.log(users)
+
+  useEffect(() => {
+    //@ts-ignore
+    dispatch(fetchPeople())
+  }, [])
   return (
     <div>
       <Head>
@@ -16,14 +32,16 @@ const People = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      {people.map((item) => (
-        <div className={styles.userItem}>
-          <Avatar
-            alt='avatar'
-            src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
-          />
-          <Typography className={styles.name}>{item}</Typography>
-        </div>
+      {users.map((item) => (
+        <Link href={`/profile/${item._id}`}>
+          <div className={styles.userItem}>
+            <Avatar
+              alt='avatar'
+              src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
+            />
+            <Typography className={styles.name}>{item.fullName}</Typography>
+          </div>
+        </Link>
       ))}
     </div>
   )
