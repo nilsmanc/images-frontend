@@ -10,12 +10,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchPeople } from '../../redux/asyncActions'
 import { peopleSelector } from '../../redux/slices/people'
 import Link from 'next/link'
+import PersonCard from '../../components/PersonCard'
 
 const People = () => {
   const dispatch = useDispatch()
 
   const data = useSelector(peopleSelector)
-  console.log(data)
 
   const users = data.people.items
   console.log(users)
@@ -33,15 +33,7 @@ const People = () => {
       </Head>
 
       {users.map((item) => (
-        <Link href={`/profile/${item._id}`}>
-          <div className={styles.userItem}>
-            <Avatar
-              alt='avatar'
-              src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
-            />
-            <Typography className={styles.name}>{item.fullName}</Typography>
-          </div>
-        </Link>
+        <PersonCard item={item} />
       ))}
     </div>
   )

@@ -3,10 +3,10 @@ import Image from 'next/image'
 
 import styles from './UserInfo.module.scss'
 
-const UserInfo = () => {
+const UserInfo = ({ person }) => {
   return (
     <div className={styles.wrapper}>
-      <Typography className={styles.name}>Name</Typography>
+      <Typography className={styles.name}>{person.fullName}</Typography>
       <Image
         src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
         alt='avatar'

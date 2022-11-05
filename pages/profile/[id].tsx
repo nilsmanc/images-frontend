@@ -10,24 +10,22 @@ export const getServerSideProps = async (context) => {
   const { id } = context.params
   const response = await fetch(`http://localhost:4444/users/${id}`)
 
-  console.log(response)
-
   const data = await response.json()
 
   return { props: { person: data } }
 }
 
 const Profile = ({ person }) => {
-  // const dispatch = useDispatch()
-  // useEffect(() => {
-  //   //@ts-ignore
-  //   dispatch(fetchPosts())
-  //   //@ts-ignore
-  //   dispatch(fetchTags())
-  // }, [])
+  const dispatch = useDispatch()
+  useEffect(() => {
+    //@ts-ignore
+    dispatch(fetchPosts())
+    //@ts-ignore
+    dispatch(fetchTags())
+  }, [])
   return (
     <div>
-      <UserInfo />
+      <UserInfo person={person} />
       <ImagesGrid />
     </div>
   )

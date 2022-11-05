@@ -16,7 +16,6 @@ const FullPost = ({ image }) => {
   const [data, setData] = useState()
   const [isLoading, setLoading] = useState(true)
 
-  console.log(image)
   useEffect(() => {
     instance
       .get(`posts/${image._id}`)

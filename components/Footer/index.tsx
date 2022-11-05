@@ -16,7 +16,7 @@ const Footer = () => {
         <Link href='/'>Main</Link>
         <Link href='/people'>People</Link>
         <Link href='/settings'>Setting</Link>
-        <Link href={`/profile`}>Profile</Link>
+        <Link href='/profile/6364b9c3f1cd4502efe411a2'>Profile</Link>
         <Link href='/login'>Login</Link>
         <Link href='/registration'>Registration</Link>
         <button onClick={logoutHandler}>Logout</button>
