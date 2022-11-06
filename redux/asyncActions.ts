@@ -28,7 +28,7 @@ export const fetchTags = createAsyncThunk<any, any>('posts/fetchTags', async () 
 })
 
 export const fetchRemovePost = createAsyncThunk<any, any>('posts/fetchRemovePost', async (id) =>
-  axios.delete(`/posts/${id}`),
+  instance.delete(`/posts/${id}`),
 )
 
 export const fetchPeople = createAsyncThunk<any, any>('people/fetchPeople', async () => {

@@ -63,9 +63,7 @@ const AddPost = () => {
       }
       console.log(fields)
 
-      const { data } = await instance.patch(`/posts/${id}`, fields)
-
-      const _id = id
+      await instance.patch(`/posts/${id}`, fields)
 
       router.push('/')
     } catch (err) {
