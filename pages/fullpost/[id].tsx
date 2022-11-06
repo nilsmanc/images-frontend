@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import instance from '../../axios'
@@ -29,7 +30,12 @@ const FullPost = ({ image }) => {
       })
   }, [])
 
-  return <Post isLoading={isLoading} imageUrl={image.imageUrl} id={image._id} />
+  return (
+    <div>
+      <Post isLoading={isLoading} imageUrl={image.imageUrl} id={image._id} />
+      <Link href={`/editpost/${image._id}`}>Edit</Link>
+    </div>
+  )
 }
 
 export default FullPost

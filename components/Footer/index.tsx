@@ -20,6 +20,8 @@ const Footer = () => {
         <Link href='/profile/6364b9c3f1cd4502efe411a2'>Profile</Link>
         <Link href='/login'>Login</Link>
         <Link href='/registration'>Registration</Link>
+        <Link href='/addpost'>Add post</Link>
+        <Link href='/editpost'>Edit post</Link>
         <button onClick={logoutHandler}>Logout</button>
       </div>
     </nav>

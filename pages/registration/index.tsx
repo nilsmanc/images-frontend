@@ -40,7 +40,7 @@ const Registration = () => {
     const data = await dispatch(fetchRegister(values))
 
     if (!data.payload) {
-      return alert('Не удалось зарегистрироваться')
+      return alert('Failed to register')
     }
     if ('token' in data.payload) {
       window.localStorage.setItem('token', data.payload.token)
@@ -66,7 +66,7 @@ const Registration = () => {
       setImageUrl(data.url)
     } catch (err) {
       console.warn(err)
-      alert('Ошибка при загрузке файла')
+      alert('Failed to upload file')
     }
   }
 
@@ -82,16 +82,16 @@ const Registration = () => {
         <TextField
           error={Boolean(errors.fullName?.message)}
           helperText={errors.fullName?.message}
-          {...register('fullName', { required: 'Укажите полное имя' })}
+          {...register('fullName', { required: 'Enter name' })}
           className={styles.field}
-          label='Полное имя'
+          label='Full name'
           fullWidth
         />
         <TextField
           error={Boolean(errors.email?.message)}
           helperText={errors.email?.message}
           type='email'
-          {...register('email', { required: 'Укажите почту' })}
+          {...register('email', { required: 'Enter email' })}
           className={styles.field}
           label='E-Mail'
           fullWidth
@@ -100,9 +100,9 @@ const Registration = () => {
           error={Boolean(errors.password?.message)}
           helperText={errors.password?.message}
           type='password'
-          {...register('password', { required: 'Укажите пароль' })}
+          {...register('password', { required: 'Enter password' })}
           className={styles.field}
-          label='Пароль'
+          label='Password'
           fullWidth
         />
 
@@ -113,7 +113,7 @@ const Registration = () => {
           <input ref={inputFileRef} type='file' onChange={handleChangeFile} hidden />
         </div>
         <input
-          {...register('avatarUrl', { required: 'Загрузите аватар' })}
+          {...register('avatarUrl', { required: 'Upload avatar' })}
           value={`http://localhost:4444${imageUrl}`}
         />
         <Button disabled={!isValid} type='submit' size='large' variant='contained' fullWidth>
