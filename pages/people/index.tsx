@@ -33,7 +33,7 @@ const People = () => {
       </Head>
 
       {users.map((item) => (
-        <PersonCard item={item} />
+        <PersonCard item={item} avatar={item.avatarUrl} />
       ))}
     </div>
   )

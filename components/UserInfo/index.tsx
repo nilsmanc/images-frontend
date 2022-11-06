@@ -8,7 +8,7 @@ const UserInfo = ({ person }) => {
     <div className={styles.wrapper}>
       <Typography className={styles.name}>{person.fullName}</Typography>
       <Image
-        src='https://img.freepik.com/free-photo/trees-each-other-forest-covered-by-creeping-mist_181624-16397.jpg'
+        src={person.avatarUrl}
         alt='avatar'
         width={300}
         height={300}

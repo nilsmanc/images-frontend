@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
@@ -11,8 +11,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth } from '../../redux/slices/auth'
 import { fetchRegister } from '../../redux/asyncActions'
 import { useRouter } from 'next/router'
+import axios from 'axios'
+import instance from '../../axios'
 
 const Registration = () => {
+  const [imageUrl, setImageUrl] = useState('')
+  const inputFileRef = useRef(null)
   const isAuth = useSelector(selectIsAuth)
   const dispatch = useDispatch()
   const router = useRouter()
@@ -24,12 +28,14 @@ const Registration = () => {
     defaultValues: {
       fullName: '',
       email: '',
+      avatarUrl: '',
       password: '',
     },
     mode: 'onChange',
   })
 
   const onSubmit = async (values: any) => {
+    console.log(values)
     //@ts-ignore
     const data = await dispatch(fetchRegister(values))
 
@@ -41,8 +47,27 @@ const Registration = () => {
     }
   }
 
+  const onClickRemoveImage = () => {
+    setImageUrl('')
+  }
+
   if (isAuth) {
     router.push('/')
+  }
+
+  console.log(imageUrl)
+  const handleChangeFile = async (event) => {
+    try {
+      const formData = new FormData()
+      const file = event.target.files[0]
+      formData.append('image', file)
+      const { data } = await instance.post('/upload', formData)
+      console.log('data', data)
+      setImageUrl(data.url)
+    } catch (err) {
+      console.warn(err)
+      alert('Ошибка при загрузке файла')
+    }
   }
 
   return (
@@ -80,9 +105,28 @@ const Registration = () => {
           label='Пароль'
           fullWidth
         />
+
+        <div>
+          <Button onClick={() => inputFileRef.current.click()} variant='outlined' size='large'>
+            Загрузить аватар
+          </Button>
+          <input ref={inputFileRef} type='file' onChange={handleChangeFile} hidden />
+        </div>
+        <input
+          {...register('avatarUrl', { required: 'Загрузите аватар' })}
+          value={`http://localhost:4444${imageUrl}`}
+        />
         <Button disabled={!isValid} type='submit' size='large' variant='contained' fullWidth>
           Зарегистрироваться
         </Button>
+        {imageUrl && (
+          <>
+            <Button variant='contained' color='error' onClick={onClickRemoveImage}>
+              Удалить
+            </Button>
+            <img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt='Uploaded' />
+          </>
+        )}
       </form>
     </Paper>
   )

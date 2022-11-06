@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
+import instance from '../../axios'
 import { logout, selectId } from '../../redux/slices/auth'
 import styles from './Footer.module.scss'
 
