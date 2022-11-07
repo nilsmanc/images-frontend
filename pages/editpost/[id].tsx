@@ -15,8 +15,6 @@ const AddPost = () => {
   const params = router.query
   const id = params.id
 
-  console.log(id)
-
   const isAuth = useSelector(selectIsAuth)
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState('')
@@ -30,7 +28,6 @@ const AddPost = () => {
       formData.append('image', file)
       const { data } = await instance.post('/upload', formData)
       setImageUrl('http://localhost:4444' + data.url)
-      console.log(data.url)
     } catch (err) {
       console.warn(err)
       alert('Failed to upload file')
@@ -61,7 +58,6 @@ const AddPost = () => {
         imageUrl,
         tags,
       }
-      console.log(fields)
 
       await instance.patch(`/posts/${id}`, fields)
 

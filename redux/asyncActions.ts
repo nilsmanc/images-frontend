@@ -40,3 +40,8 @@ export const fetchUserPosts = createAsyncThunk<any, any>('posts/fetchUserPosts',
   const { data } = await instance.get(`/posts/user/${id}`)
   return data
 })
+
+export const fetchPostComments = createAsyncThunk<any, any>(
+  'comments/fetchPostComments',
+  async (id) => instance.get(`/comments/${id}`),
+)

@@ -16,7 +16,6 @@ export const getServerSideProps = async (context) => {
 }
 
 const Profile = ({ person }) => {
-  console.log(person._id)
   const dispatch = useDispatch()
   useEffect(() => {
     //@ts-ignore

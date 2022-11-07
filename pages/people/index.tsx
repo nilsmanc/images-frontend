@@ -18,8 +18,6 @@ const People = () => {
   const data = useSelector(peopleSelector)
 
   const users = data.people.items
-  console.log(users)
-
   useEffect(() => {
     //@ts-ignore
     dispatch(fetchPeople())

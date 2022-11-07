@@ -27,7 +27,6 @@ const AddPost = () => {
       formData.append('image', file)
       const { data } = await instance.post('/upload', formData)
       setImageUrl('http://localhost:4444' + data.url)
-      console.log(data.url)
     } catch (err) {
       console.warn(err)
       alert('Failed to upload file')
@@ -47,7 +46,6 @@ const AddPost = () => {
         imageUrl,
         tags,
       }
-      console.log(fields)
 
       const { data } = await instance.post('/posts', fields)
 

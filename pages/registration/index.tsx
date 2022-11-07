@@ -35,7 +35,6 @@ const Registration = () => {
   })
 
   const onSubmit = async (values: any) => {
-    console.log(values)
     //@ts-ignore
     const data = await dispatch(fetchRegister(values))
 
@@ -55,14 +54,12 @@ const Registration = () => {
     router.push('/')
   }
 
-  console.log(imageUrl)
   const handleChangeFile = async (event) => {
     try {
       const formData = new FormData()
       const file = event.target.files[0]
       formData.append('image', file)
       const { data } = await instance.post('/upload', formData)
-      console.log('data', data)
       setImageUrl(data.url)
     } catch (err) {
       console.warn(err)
