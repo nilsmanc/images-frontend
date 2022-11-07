@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchPosts, fetchRemovePost, fetchTags } from '../asyncActions'
+import { fetchPosts, fetchRemovePost, fetchTags, fetchUserPosts } from '../asyncActions'
 
 const initialState = {
   posts: {
@@ -43,6 +43,19 @@ const postsSlice = createSlice({
     })
     builder.addCase(fetchRemovePost.pending, (state, action) => {
       state.posts.items = state.posts.items.filter((obj: any) => obj._id !== action.meta.arg)
+    })
+    //user's posts
+    builder.addCase(fetchUserPosts.pending, (state) => {
+      state.posts.items = []
+      state.posts.status = 'loading'
+    })
+    builder.addCase(fetchUserPosts.fulfilled, (state, action) => {
+      state.posts.items = action.payload
+      state.posts.status = 'loaded'
+    })
+    builder.addCase(fetchUserPosts.rejected, (state) => {
+      state.posts.items = []
+      state.posts.status = 'error'
     })
   },
 })
