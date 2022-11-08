@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const Post = ({ isLoading, imageUrl, id }: any) => {
+const Post = ({ isLoading, imageUrl, id }) => {
   if (isLoading) {
     return <div>Skeleton</div>
   }

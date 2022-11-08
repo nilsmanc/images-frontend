@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchPostComments, fetchRemoveComment } from '../asyncActions'
 import { RootState } from '../store'
-import { CommentSliceState, Status } from './types'
+import { CommentType, CommentSliceState, Status } from './types'
 
 const initialState: CommentSliceState = {
   items: [],
@@ -26,7 +26,7 @@ const commentsSlice = createSlice({
       state.status = Status.ERROR
     })
     builder.addCase(fetchRemoveComment.pending, (state, action) => {
-      state.items = state.items.filter((obj: any) => obj._id !== action.meta.arg)
+      state.items = state.items.filter((obj: CommentType) => obj._id !== action.meta.arg)
     })
   },
 })

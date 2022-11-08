@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import { useAppDispatch } from '../../redux/store'
+import { LoginData, LoginParams } from '../../redux/slices/types'
 
 const Login = () => {
   const isAuth = useSelector(selectIsAuth)
@@ -29,9 +30,8 @@ const Login = () => {
     mode: 'onChange',
   })
 
-  const onSubmit = async (values: any) => {
-    const data = await dispatch(fetchAuth(values))
-    console.log(data)
+  const onSubmit = async (values: LoginParams) => {
+    const data = (await dispatch(fetchAuth(values))) as LoginData
 
     if (!data.payload) {
       return alert('Не удалось авторизоваться')

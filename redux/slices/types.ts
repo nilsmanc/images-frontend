@@ -20,15 +20,15 @@ export type AuthData = {
 }
 
 export interface CommentSliceState {
-  items: Comment[]
+  items: CommentType[]
   status: Status
 }
 
-export type Comment = {
-  _id: string
+export type CommentType = {
+  _id: string | number
   text: string
   likes: number
-  user: User
+  user: UserType
   post: string
   createdAt: string
   updatedAt: string
@@ -36,11 +36,11 @@ export type Comment = {
 }
 
 export interface PeopleSliceState {
-  items: User[]
+  items: UserType[]
   status: Status
 }
 
-export type User = {
+export type UserType = {
   _id: string
   fullName: string
   email: string
@@ -53,7 +53,7 @@ export type User = {
 
 export interface PostsSliceState {
   posts: {
-    items: Post[]
+    items: PostType[]
     status: Status
   }
   tags: {
@@ -62,14 +62,14 @@ export interface PostsSliceState {
   }
 }
 
-export type Post = {
-  _id: string
+export type PostType = {
+  _id: string | number
   imageUrl: string
   description: string
   tags: Array<string>
   viewsCount: number
   likes: number
-  user: User
+  user: UserType
   createdAt: string
   updatedAt: string
   __v: number
@@ -85,4 +85,23 @@ export type RegisterParams = {
   email: string
   password: string
   avatarUrl: string
+}
+
+export interface LoginData {
+  meta: {
+    arg: LoginParams | RegisterParams
+    requestId: string
+    requestStatus: string
+  }
+  payload: {
+    avatarUrl: string
+    createdAt: string
+    email: string
+    fullName: string
+    token: string
+    updatedAt: string
+    __v: number
+    _id: string
+  }
+  type: string
 }

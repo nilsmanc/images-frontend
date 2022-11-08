@@ -5,7 +5,7 @@ import Header from '../Header'
 import { fetchAuthMe } from '../../redux/asyncActions'
 import { useAppDispatch } from '../../redux/store'
 
-const Layout = ({ children }: any) => {
+const Layout = ({ children }) => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchAuthMe())

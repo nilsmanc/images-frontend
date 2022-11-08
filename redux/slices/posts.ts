@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchPosts, fetchRemovePost, fetchTags, fetchUserPosts } from '../asyncActions'
 import { RootState } from '../store'
-import { Post, PostsSliceState, Status } from './types'
+import { PostType, PostsSliceState, Status } from './types'
 
 const initialState: PostsSliceState = {
   posts: {
@@ -23,7 +23,7 @@ const postsSlice = createSlice({
       state.posts.items = []
       state.posts.status = Status.LOADING
     })
-    builder.addCase(fetchPosts.fulfilled, (state, action: PayloadAction<Post[]>) => {
+    builder.addCase(fetchPosts.fulfilled, (state, action: PayloadAction<PostType[]>) => {
       state.posts.items = action.payload
       state.posts.status = Status.LOADED
     })
@@ -44,13 +44,13 @@ const postsSlice = createSlice({
       state.tags.status = Status.ERROR
     })
     builder.addCase(fetchRemovePost.pending, (state, action) => {
-      state.posts.items = state.posts.items.filter((obj: any) => obj._id !== action.meta.arg)
+      state.posts.items = state.posts.items.filter((obj: PostType) => obj._id !== action.meta.arg)
     })
     builder.addCase(fetchUserPosts.pending, (state) => {
       state.posts.items = []
       state.posts.status = Status.LOADING
     })
-    builder.addCase(fetchUserPosts.fulfilled, (state, action: PayloadAction<Post[]>) => {
+    builder.addCase(fetchUserPosts.fulfilled, (state, action: PayloadAction<PostType[]>) => {
       state.posts.items = action.payload
       state.posts.status = Status.LOADED
     })
@@ -60,6 +60,8 @@ const postsSlice = createSlice({
     })
   },
 })
+
+export const postItemsSelector = (state: RootState) => state.posts.posts.items
 
 export const postsSelector = (state: RootState) => state.posts
 

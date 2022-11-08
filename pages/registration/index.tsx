@@ -14,6 +14,7 @@ import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
 import { useAppDispatch } from '../../redux/store'
+import { LoginData, RegisterParams } from '../../redux/slices/types'
 
 const Registration = () => {
   const [imageUrl, setImageUrl] = useState('')
@@ -35,9 +36,8 @@ const Registration = () => {
     mode: 'onChange',
   })
 
-  const onSubmit = async (values: any) => {
-    const data = await dispatch(fetchRegister(values))
-    console.log('register', data)
+  const onSubmit = async (values: RegisterParams) => {
+    const data = (await dispatch(fetchRegister(values))) as LoginData
 
     if (!data.payload) {
       return alert('Failed to register')
