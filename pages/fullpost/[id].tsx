@@ -1,21 +1,18 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { useSelector } from 'react-redux'
+
 import instance from '../../axios'
 import Post from '../../components/Post'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  fetchAuthMe,
-  fetchPostComments,
-  fetchRemoveComment,
-  fetchRemovePost,
-} from '../../redux/asyncActions'
-import { TextField } from '@mui/material'
+import { commentsSelector } from '../../redux/slices/comments'
+import { selectAuthUser } from '../../redux/slices/auth'
+import { fetchPostComments, fetchRemoveComment, fetchRemovePost } from '../../redux/asyncActions'
 
 import styles from './FullPost.module.scss'
-import { commentsSelector } from '../../redux/slices/comments'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import { TextField } from '@mui/material'
+import { useAppDispatch } from '../../redux/store'
 
 export const getServerSideProps = async (context) => {
   const { id } = context.params
@@ -28,28 +25,27 @@ export const getServerSideProps = async (context) => {
 
 const FullPost = ({ image }) => {
   const [isLoading, setLoading] = useState(true)
-  const array = useSelector(commentsSelector)
-  console.log(array)
-  const comments = array.comments.items
+  const comments = useSelector(commentsSelector)
+  const user = useSelector(selectAuthUser)
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+
+  const isEditable = Boolean(user?._id === image.user._id)
 
   useEffect(() => {
     instance
       .get(`posts/${image._id}`)
-      .then((res) => {
+      .then(() => {
         setLoading(false)
       })
       .catch((err) => {
         console.warn(err)
         alert('Error in getting post')
       })
-    //@ts-ignore
     dispatch(fetchPostComments(image._id))
   }, [])
 
   const clickHandler = () => {
-    //@ts-ignore
     dispatch(fetchRemovePost(image._id))
   }
 
@@ -64,7 +60,6 @@ const FullPost = ({ image }) => {
       }
 
       await instance.post('/comments', comment)
-      //@ts-ignore
       dispatch(fetchPostComments(image._id))
     } catch (err) {
       console.warn(err)
@@ -73,7 +68,6 @@ const FullPost = ({ image }) => {
   }
 
   const deleteHandler = async (id) => {
-    //@ts-ignore
     dispatch(fetchRemoveComment(id))
   }
 
@@ -81,7 +75,7 @@ const FullPost = ({ image }) => {
     <div>
       <Post isLoading={isLoading} imageUrl={image.imageUrl} id={image._id} />
       <Typography>{image.description}</Typography>
-      <Link href={`/editpost/${image._id}`}>Edit</Link>
+
       <TextField id='commentField' />
       {comments?.map((comment) => {
         return (
@@ -92,12 +86,19 @@ const FullPost = ({ image }) => {
             <Typography>{comment.text}</Typography>
             <img className={styles.image} src={comment.user?.avatarUrl} />
             {/* @ts-ignore */}
-            <Button onClick={() => deleteHandler(comment._id)}>Delete comment</Button>
+            {user?._id === comment.user?._id && (
+              <Button onClick={() => deleteHandler(comment._id)}>Delete comment</Button>
+            )}
           </div>
         )
       })}
       <Button onClick={sendHandler}>Send</Button>
-      <Button onClick={clickHandler}>Delete post</Button>
+      {isEditable && (
+        <div>
+          <Button onClick={clickHandler}>Delete post</Button>
+          <Link href={`/editpost/${image._id}`}>Edit</Link>
+        </div>
+      )}
     </div>
   )
 }

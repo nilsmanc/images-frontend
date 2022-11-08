@@ -1,10 +1,11 @@
+import { useEffect } from 'react'
+
 import ImagesGrid from '../../components/ImagesGrid'
 import UserInfo from '../../components/UserInfo'
-import { useEffect } from 'react'
+import { fetchTags, fetchUserPosts } from '../../redux/asyncActions'
+import { useAppDispatch } from '../../redux/store'
+
 import styles from './Profile.module.scss'
-import { fetchPosts, fetchTags, fetchUserPosts } from '../../redux/asyncActions'
-import { useDispatch } from 'react-redux'
-import { useState } from 'react'
 
 export const getServerSideProps = async (context) => {
   const { id } = context.params
@@ -16,11 +17,9 @@ export const getServerSideProps = async (context) => {
 }
 
 const Profile = ({ person }) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    //@ts-ignore
     dispatch(fetchUserPosts(person._id))
-    //@ts-ignore
     dispatch(fetchTags())
   }, [])
   return (

@@ -1,14 +1,13 @@
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+
 import Footer from '../Footer'
 import Header from '../Header'
-
-import { useEffect } from 'react'
 import { fetchAuthMe } from '../../redux/asyncActions'
+import { useAppDispatch } from '../../redux/store'
 
 const Layout = ({ children }: any) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    //@ts-ignore
     dispatch(fetchAuthMe())
   }, [])
   return (

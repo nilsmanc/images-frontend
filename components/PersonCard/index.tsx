@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import Avatar from '@mui/material/Avatar'
-import Typography from '@mui/material/Typography'
 
 import styles from './PersonCard.module.scss'
+import Avatar from '@mui/material/Avatar'
+import Typography from '@mui/material/Typography'
 
 const PersonCard = ({ item, avatar }) => {
   return (

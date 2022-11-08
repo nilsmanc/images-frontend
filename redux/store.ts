@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import { peopleReducer } from './slices/people'
 import { configureStore } from '@reduxjs/toolkit'
 import { authReducer } from './slices/auth'
@@ -16,5 +17,10 @@ const store = configureStore({
       serializableCheck: false,
     }),
 })
+
+export type RootState = ReturnType<typeof store.getState>
+
+type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export default store

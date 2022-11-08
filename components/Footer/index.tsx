@@ -1,11 +1,15 @@
 import Link from 'next/link'
-import { useDispatch, useSelector } from 'react-redux'
-import instance from '../../axios'
-import { logout, selectId } from '../../redux/slices/auth'
+import { useSelector } from 'react-redux'
+
+import { logout, selectAuthUser } from '../../redux/slices/auth'
+import { useAppDispatch } from '../../redux/store'
+
 import styles from './Footer.module.scss'
 
 const Footer = () => {
-  const dispatch = useDispatch()
+  const user = useSelector(selectAuthUser)
+  const id = user?._id
+  const dispatch = useAppDispatch()
   const logoutHandler = () => {
     dispatch(logout())
     window.localStorage.removeItem('token')
@@ -17,7 +21,7 @@ const Footer = () => {
         <Link href='/'>Main</Link>
         <Link href='/people'>People</Link>
         <Link href='/settings'>Setting</Link>
-        <Link href='/profile/6364b9c3f1cd4502efe411a2'>Profile</Link>
+        <Link href={`/profile/${id}`}>Profile</Link>
         <Link href='/login'>Login</Link>
         <Link href='/registration'>Registration</Link>
         <Link href='/addpost'>Add post</Link>

@@ -1,11 +1,11 @@
+import { RootState } from './../store'
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchPeople } from '../asyncActions'
+import { PeopleSliceState, Status } from './types'
 
-const initialState = {
-  people: {
-    items: [],
-    status: 'loading',
-  },
+const initialState: PeopleSliceState = {
+  items: [],
+  status: Status.LOADING,
 }
 
 const peopleSlice = createSlice({
@@ -14,20 +14,20 @@ const peopleSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPeople.pending, (state) => {
-      state.people.items = []
-      state.people.status = 'loading'
+      state.items = []
+      state.status = Status.LOADING
     })
     builder.addCase(fetchPeople.fulfilled, (state, action) => {
-      state.people.items = action.payload
-      state.people.status = 'loaded'
+      state.items = action.payload
+      state.status = Status.LOADED
     })
     builder.addCase(fetchPeople.rejected, (state) => {
-      state.people.items = []
-      state.people.status = 'error'
+      state.items = []
+      state.status = Status.ERROR
     })
   },
 })
 
-export const peopleSelector = (state: any) => state.people
+export const peopleSelector = (state: RootState) => state.people.items
 
 export const peopleReducer = peopleSlice.reducer

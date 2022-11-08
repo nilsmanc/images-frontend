@@ -1,22 +1,21 @@
 import Head from 'next/head'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import ImagesGrid from '../components/ImagesGrid'
 import { fetchPosts, fetchTags } from '../redux/asyncActions'
 import { postsSelector } from '../redux/slices/posts'
+import { useAppDispatch } from '../redux/store'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { posts, tags } = useSelector(postsSelector)
 
   const isPostsLoading = posts.status === 'loading'
   const isTagsLoading = tags.status === 'loading'
 
   useEffect(() => {
-    //@ts-ignore
     dispatch(fetchPosts())
-    //@ts-ignore
     dispatch(fetchTags())
   }, [])
   return (

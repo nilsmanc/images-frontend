@@ -1,9 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchAuth, fetchAuthMe, fetchRegister } from '../asyncActions'
+import { RootState } from '../store'
+import { AuthData, AuthSliceState, Status } from './types'
 
-const initialState = {
+const initialState: AuthSliceState = {
   data: null,
-  status: 'loading',
+  status: Status.LOADING,
 }
 
 const authSlice = createSlice({
@@ -16,47 +18,47 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAuth.pending, (state) => {
-      state.status = 'loading'
+      state.status = Status.LOADING
       state.data = null
     })
-    builder.addCase(fetchAuth.fulfilled, (state, action) => {
-      state.status = 'loaded'
+    builder.addCase(fetchAuth.fulfilled, (state, action: PayloadAction<AuthData>) => {
+      state.status = Status.LOADED
       state.data = action.payload
     })
     builder.addCase(fetchAuth.rejected, (state) => {
-      state.status = 'error'
+      state.status = Status.ERROR
       state.data = null
     })
     builder.addCase(fetchAuthMe.pending, (state) => {
-      state.status = 'loading'
+      state.status = Status.LOADING
       state.data = null
     })
-    builder.addCase(fetchAuthMe.fulfilled, (state, action) => {
-      state.status = 'loaded'
+    builder.addCase(fetchAuthMe.fulfilled, (state, action: PayloadAction<AuthData>) => {
+      state.status = Status.LOADED
       state.data = action.payload
     })
     builder.addCase(fetchAuthMe.rejected, (state) => {
-      state.status = 'error'
+      state.status = Status.ERROR
       state.data = null
     })
     builder.addCase(fetchRegister.pending, (state) => {
-      state.status = 'loading'
+      state.status = Status.LOADING
       state.data = null
     })
-    builder.addCase(fetchRegister.fulfilled, (state, action) => {
-      state.status = 'loaded'
+    builder.addCase(fetchRegister.fulfilled, (state, action: PayloadAction<AuthData>) => {
+      state.status = Status.LOADED
       state.data = action.payload
     })
     builder.addCase(fetchRegister.rejected, (state) => {
-      state.status = 'error'
+      state.status = Status.ERROR
       state.data = null
     })
   },
 })
 
-export const selectIsAuth = (state: any) => Boolean(state.auth.data)
+export const selectIsAuth = (state: RootState) => Boolean(state.auth.data)
 
-export const selectId = (state: any) => state.auth.data
+export const selectAuthUser = (state: RootState) => state.auth.data
 
 export const authReducer = authSlice.reducer
 

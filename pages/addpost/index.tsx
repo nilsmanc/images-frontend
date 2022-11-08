@@ -1,20 +1,17 @@
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/router'
-import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
+
+import instance from '../../axios'
+
+import styles from './AddPost.module.scss'
 import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
-import { useSelector } from 'react-redux'
-import instance from '../../axios'
-import { selectIsAuth } from '../../redux/slices/auth'
-
-import styles from './AddPost.module.scss'
-import Link from 'next/link'
 
 const AddPost = () => {
   const router = useRouter()
-  const id = router.query
 
-  const isAuth = useSelector(selectIsAuth)
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -33,8 +30,6 @@ const AddPost = () => {
     }
   }
 
-  useEffect(() => {}, [])
-
   const onClickRemoveImage = () => {
     setImageUrl('')
   }
@@ -47,9 +42,7 @@ const AddPost = () => {
         tags,
       }
 
-      const { data } = await instance.post('/posts', fields)
-
-      const _id = data._id
+      await instance.post('/posts', fields)
 
       router.push('/')
     } catch (err) {

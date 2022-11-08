@@ -1,21 +1,21 @@
-import { useRouter } from 'next/router'
 import { useState, useRef, useEffect } from 'react'
-import TextField from '@mui/material/TextField'
-import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { useSelector } from 'react-redux'
+
 import instance from '../../axios'
 import { selectIsAuth } from '../../redux/slices/auth'
 
 import styles from './EditPost.module.scss'
-import Link from 'next/link'
+import TextField from '@mui/material/TextField'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
 
 const AddPost = () => {
   const router = useRouter()
   const params = router.query
   const id = params.id
 
-  const isAuth = useSelector(selectIsAuth)
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -60,6 +60,7 @@ const AddPost = () => {
       }
 
       await instance.patch(`/posts/${id}`, fields)
+      console.log(fields)
 
       router.push('/')
     } catch (err) {

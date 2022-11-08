@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchPostComments, fetchRemoveComment } from '../asyncActions'
+import { RootState } from '../store'
+import { CommentSliceState, Status } from './types'
 
-const initialState = {
-  comments: {
-    items: [],
-    status: 'loading',
-  },
+const initialState: CommentSliceState = {
+  items: [],
+  status: Status.LOADING,
 }
 
 const commentsSlice = createSlice({
@@ -14,23 +14,23 @@ const commentsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPostComments.pending, (state) => {
-      state.comments.items = []
-      state.comments.status = 'loading'
+      state.items = []
+      state.status = Status.LOADING
     })
     builder.addCase(fetchPostComments.fulfilled, (state, action) => {
-      state.comments.items = action.payload
-      state.comments.status = 'loaded'
+      state.items = action.payload
+      state.status = Status.LOADED
     })
     builder.addCase(fetchPostComments.rejected, (state) => {
-      state.comments.items = []
-      state.comments.status = 'error'
+      state.items = []
+      state.status = Status.ERROR
     })
     builder.addCase(fetchRemoveComment.pending, (state, action) => {
-      state.comments.items = state.comments.items.filter((obj: any) => obj._id !== action.meta.arg)
+      state.items = state.items.filter((obj: any) => obj._id !== action.meta.arg)
     })
   },
 })
 
-export const commentsSelector = (state: any) => state.comments
+export const commentsSelector = (state: RootState) => state.comments.items
 
 export const commentsReducer = commentsSlice.reducer

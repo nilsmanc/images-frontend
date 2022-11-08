@@ -1,25 +1,20 @@
-import Head from 'next/head'
-import Typography from '@mui/material/Typography'
-import Avatar from '@mui/material/Avatar'
-import Divider from '@mui/material/Divider'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import Head from 'next/head'
 
-import styles from './People.module.scss'
-import instance from '../../axios'
-import { useDispatch, useSelector } from 'react-redux'
 import { fetchPeople } from '../../redux/asyncActions'
 import { peopleSelector } from '../../redux/slices/people'
-import Link from 'next/link'
 import PersonCard from '../../components/PersonCard'
 
+import styles from './People.module.scss'
+import { useAppDispatch } from '../../redux/store'
+
 const People = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const data = useSelector(peopleSelector)
+  const users = useSelector(peopleSelector)
 
-  const users = data.people.items
   useEffect(() => {
-    //@ts-ignore
     dispatch(fetchPeople())
   }, [])
   return (

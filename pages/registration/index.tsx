@@ -1,24 +1,25 @@
 import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+
+import instance from '../../axios'
+import { selectIsAuth } from '../../redux/slices/auth'
+import { fetchRegister } from '../../redux/asyncActions'
+
+import styles from './Registration.module.scss'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
-
-import styles from './Registration.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectIsAuth } from '../../redux/slices/auth'
-import { fetchRegister } from '../../redux/asyncActions'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import instance from '../../axios'
+import { useAppDispatch } from '../../redux/store'
 
 const Registration = () => {
   const [imageUrl, setImageUrl] = useState('')
   const inputFileRef = useRef(null)
   const isAuth = useSelector(selectIsAuth)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const router = useRouter()
   const {
     register,
@@ -35,8 +36,8 @@ const Registration = () => {
   })
 
   const onSubmit = async (values: any) => {
-    //@ts-ignore
     const data = await dispatch(fetchRegister(values))
+    console.log('register', data)
 
     if (!data.payload) {
       return alert('Failed to register')

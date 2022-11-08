@@ -1,19 +1,21 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
+
+import { selectIsAuth } from '../../redux/slices/auth'
+import { fetchAuth } from '../../redux/asyncActions'
+
+import styles from './Login.module.scss'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
-import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectIsAuth } from '../../redux/slices/auth'
-import { fetchAuth } from '../../redux/asyncActions'
-import { useRouter } from 'next/router'
-
-import styles from './Login.module.scss'
+import { useAppDispatch } from '../../redux/store'
 
 const Login = () => {
   const isAuth = useSelector(selectIsAuth)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const router = useRouter()
   const {
     register,
@@ -28,8 +30,8 @@ const Login = () => {
   })
 
   const onSubmit = async (values: any) => {
-    //@ts-ignore
     const data = await dispatch(fetchAuth(values))
+    console.log(data)
 
     if (!data.payload) {
       return alert('Не удалось авторизоваться')
