@@ -43,5 +43,13 @@ export const fetchUserPosts = createAsyncThunk<any, any>('posts/fetchUserPosts',
 
 export const fetchPostComments = createAsyncThunk<any, any>(
   'comments/fetchPostComments',
-  async (id) => instance.get(`/comments/${id}`),
+  async (id) => {
+    const { data } = await instance.get(`/comments/${id}`)
+    return data
+  },
+)
+
+export const fetchRemoveComment = createAsyncThunk<any, any>(
+  'comments/fetchRemoveComment',
+  async (id) => instance.delete(`/comments/${id}`),
 )

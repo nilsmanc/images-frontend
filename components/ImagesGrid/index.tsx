@@ -12,7 +12,6 @@ const ImagesGrid = () => {
   let array = useSelector(postsSelector)
   const dispatch = useDispatch()
   const images = array.posts.items
-  console.log(images)
   const clickHandler = (id) => {
     //@ts-ignore
     dispatch(fetchRemovePost(id))

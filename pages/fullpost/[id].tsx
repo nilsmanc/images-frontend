@@ -6,7 +6,12 @@ import Post from '../../components/Post'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAuthMe, fetchPostComments, fetchRemovePost } from '../../redux/asyncActions'
+import {
+  fetchAuthMe,
+  fetchPostComments,
+  fetchRemoveComment,
+  fetchRemovePost,
+} from '../../redux/asyncActions'
 import { TextField } from '@mui/material'
 
 import styles from './FullPost.module.scss'
@@ -22,10 +27,10 @@ export const getServerSideProps = async (context) => {
 }
 
 const FullPost = ({ image }) => {
-  const [data, setData] = useState()
   const [isLoading, setLoading] = useState(true)
   const array = useSelector(commentsSelector)
-  const comments = array.comments.items.data
+  console.log(array)
+  const comments = array.comments.items
 
   const dispatch = useDispatch()
 
@@ -33,7 +38,6 @@ const FullPost = ({ image }) => {
     instance
       .get(`posts/${image._id}`)
       .then((res) => {
-        setData(res.data)
         setLoading(false)
       })
       .catch((err) => {
@@ -67,7 +71,12 @@ const FullPost = ({ image }) => {
       alert('Failed to post the comment')
     }
   }
-  console.log(comments)
+
+  const deleteHandler = async (id) => {
+    //@ts-ignore
+    dispatch(fetchRemoveComment(id))
+  }
+
   return (
     <div>
       <Post isLoading={isLoading} imageUrl={image.imageUrl} id={image._id} />
@@ -82,6 +91,8 @@ const FullPost = ({ image }) => {
             </Typography>
             <Typography>{comment.text}</Typography>
             <img className={styles.image} src={comment.user?.avatarUrl} />
+            {/* @ts-ignore */}
+            <Button onClick={() => deleteHandler(comment._id)}>Delete comment</Button>
           </div>
         )
       })}
