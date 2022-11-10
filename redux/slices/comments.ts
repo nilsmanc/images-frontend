@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+
 import { fetchPostComments, fetchRemoveComment } from '../asyncActions'
 import { RootState } from '../store'
 import { CommentType, CommentSliceState, Status } from './types'

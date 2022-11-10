@@ -7,9 +7,11 @@ import { useAppDispatch } from '../../redux/store'
 
 const Layout = ({ children }) => {
   const dispatch = useAppDispatch()
+
   useEffect(() => {
     dispatch(fetchAuthMe())
   }, [])
+
   return (
     <>
       <Header />

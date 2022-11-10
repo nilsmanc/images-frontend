@@ -1,104 +1,118 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
+import Image from 'next/image'
 
 import instance from '../../axios'
-import Post from '../../components/Post'
 import { commentsSelector } from '../../redux/slices/comments'
 import { selectAuthUser } from '../../redux/slices/auth'
-import { fetchPostComments, fetchRemoveComment, fetchRemovePost } from '../../redux/asyncActions'
+import { fetchPostComments, fetchRemovePost } from '../../redux/asyncActions'
+import CommentItem from '../../components/CommentItem'
 
 import styles from './FullPost.module.scss'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { TextField } from '@mui/material'
 import { useAppDispatch } from '../../redux/store'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 
 export const getServerSideProps = async (context) => {
   const { id } = context.params
+
   const response = await fetch(`http://localhost:4444/posts/${id}`)
 
   const data = await response.json()
 
-  return { props: { image: data } }
+  return { props: { post: data } }
 }
 
-const FullPost = ({ image }) => {
-  const [isLoading, setLoading] = useState(true)
+const FullPost = ({ post }) => {
   const comments = useSelector(commentsSelector)
   const user = useSelector(selectAuthUser)
 
+  const [commentText, setCommentText] = useState('')
+
   const dispatch = useAppDispatch()
 
-  const isEditable = Boolean(user?._id === image.user._id)
+  const isEditable = Boolean(user?._id === post.user._id)
 
   useEffect(() => {
-    instance
-      .get(`posts/${image._id}`)
-      .then(() => {
-        setLoading(false)
-      })
-      .catch((err) => {
-        console.warn(err)
-        alert('Error in getting post')
-      })
-    dispatch(fetchPostComments(image._id))
+    instance.get(`posts/${post._id}`).catch((err) => {
+      console.warn(err)
+      alert('Error in getting post')
+    })
+    dispatch(fetchPostComments(post._id))
   }, [])
 
   const clickHandler = () => {
-    dispatch(fetchRemovePost(image._id))
+    dispatch(fetchRemovePost(post._id))
+  }
+
+  const changeTextHandler = () => {
+    const text = (document.getElementById('commentField') as HTMLInputElement).value
+    setCommentText(text)
   }
 
   const sendHandler = async () => {
     try {
-      const text = (document.getElementById('commentField') as HTMLInputElement).value
-      const postId = image._id
+      const postId = post._id
+      const text = commentText
 
       const comment = {
         text,
         postId,
       }
 
+      const commentsArea = document.getElementById('comments')
+
       await instance.post('/comments', comment)
-      dispatch(fetchPostComments(image._id))
+
+      dispatch(fetchPostComments(post._id))
+
+      setCommentText('')
+
+      commentsArea.scroll({
+        top: commentsArea.scrollHeight,
+        behavior: 'smooth',
+      })
     } catch (err) {
       console.warn(err)
       alert('Failed to post the comment')
     }
   }
 
-  const deleteHandler = async (id) => {
-    dispatch(fetchRemoveComment(id))
-  }
-
   return (
-    <div>
-      <Post isLoading={isLoading} imageUrl={image.imageUrl} id={image._id} />
-      <Typography>{image.description}</Typography>
-
-      <TextField id='commentField' />
-      {comments?.map((comment) => {
-        return (
-          <div>
-            <Typography>
-              <b>{comment.user?.fullName}</b>
-            </Typography>
-            <Typography>{comment.text}</Typography>
-            <img className={styles.image} src={comment.user?.avatarUrl} />
-            {/* @ts-ignore */}
-            {user?._id === comment.user?._id && (
-              <Button onClick={() => deleteHandler(comment._id)}>Delete comment</Button>
-            )}
-          </div>
-        )
-      })}
-      <Button onClick={sendHandler}>Send</Button>
-      {isEditable && (
-        <div>
-          <Button onClick={clickHandler}>Delete post</Button>
-          <Link href={`/editpost/${image._id}`}>Edit</Link>
+    <div className={styles.wrapper}>
+      <div className={styles.image}>
+        <Image src={post.imageUrl} alt='image' width={500} height={500} />
+      </div>
+      <div className={styles.description}>
+        <Typography className={styles.text}>{post.description}</Typography>
+        <div className={styles.postButtons}>
+          {isEditable && (
+            <div>
+              <Button onClick={clickHandler}>
+                <DeleteIcon color='action' />
+              </Button>
+              <Link href={`/editpost/${post._id}`}>
+                <Button>
+                  <EditIcon color='action' />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
-      )}
+      </div>
+      <div className={styles.commentItems} id='comments'>
+        {comments?.map((comment) => (
+          <CommentItem comment={comment} user={user} />
+        ))}
+      </div>
+      <div className={styles.commentButtons}>
+        <TextField id='commentField' value={commentText} onChange={changeTextHandler} />
+        <Button onClick={sendHandler}>Send</Button>
+      </div>
     </div>
   )
 }

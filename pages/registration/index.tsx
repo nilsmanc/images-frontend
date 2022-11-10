@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 import instance from '../../axios'
 import { selectIsAuth } from '../../redux/slices/auth'
 import { fetchRegister } from '../../redux/asyncActions'
+import { useAppDispatch } from '../../redux/store'
+import { LoginData, RegisterParams } from '../../redux/slices/types'
 
 import styles from './Registration.module.scss'
 import Typography from '@mui/material/Typography'
@@ -13,15 +15,18 @@ import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
-import { useAppDispatch } from '../../redux/store'
-import { LoginData, RegisterParams } from '../../redux/slices/types'
 
 const Registration = () => {
   const [imageUrl, setImageUrl] = useState('')
+
   const inputFileRef = useRef(null)
+
   const isAuth = useSelector(selectIsAuth)
+
   const dispatch = useAppDispatch()
+
   const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -71,7 +76,7 @@ const Registration = () => {
   return (
     <Paper classes={{ root: styles.root }}>
       <Typography classes={{ root: styles.title }} variant='h5'>
-        Создание аккаунта
+        Sign up
       </Typography>
       <div className={styles.avatar}>
         <Avatar sx={{ width: 100, height: 100 }} />
@@ -105,24 +110,36 @@ const Registration = () => {
         />
 
         <div>
-          <Button onClick={() => inputFileRef.current.click()} variant='outlined' size='large'>
-            Загрузить аватар
+          <Button
+            className={styles.avatarInput}
+            {...register('avatarUrl', { required: 'Upload avatar' })}
+            value={`http://localhost:4444${imageUrl}`}
+            onClick={() => inputFileRef.current.click()}
+            variant='outlined'
+            size='large'>
+            Upload photo
           </Button>
           <input ref={inputFileRef} type='file' onChange={handleChangeFile} hidden />
         </div>
-        <input
-          {...register('avatarUrl', { required: 'Upload avatar' })}
-          value={`http://localhost:4444${imageUrl}`}
-        />
-        <Button disabled={!isValid} type='submit' size='large' variant='contained' fullWidth>
-          Зарегистрироваться
+        <Button
+          className={styles.signUp}
+          disabled={!isValid}
+          type='submit'
+          size='large'
+          variant='contained'
+          fullWidth>
+          Sign up
         </Button>
         {imageUrl && (
           <>
-            <Button variant='contained' color='error' onClick={onClickRemoveImage}>
-              Удалить
-            </Button>
             <img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt='Uploaded' />
+            <Button
+              className={styles.deleteButton}
+              variant='contained'
+              color='error'
+              onClick={onClickRemoveImage}>
+              Delete
+            </Button>
           </>
         )}
       </form>

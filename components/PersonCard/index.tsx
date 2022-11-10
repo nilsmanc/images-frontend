@@ -8,7 +8,7 @@ const PersonCard = ({ item, avatar }) => {
   return (
     <Link href={`/profile/${item._id}`}>
       <div className={styles.userItem}>
-        <Avatar alt='avatar' src={avatar} />
+        <Avatar className={styles.avatar} alt='avatar' src={avatar} />
         <Typography className={styles.name}>{item.fullName}</Typography>
       </div>
     </Link>

@@ -1,0 +1,36 @@
+.wrapper {
+  display: grid;
+  width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.preview {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.cancel {
+  text-align: center;
+}
+
+.skeleton {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+.upload {
+  margin-bottom: 20px;
+}
+
+.delete {
+  margin: 20px 0;
+}
+
+.tags {
+  margin-bottom: 20px;
+}

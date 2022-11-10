@@ -1,11 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const Post = ({ isLoading, imageUrl, id }) => {
-  if (isLoading) {
-    return <div>Skeleton</div>
-  }
-
+const Post = ({ imageUrl, id }) => {
   return (
     <div>
       <Link href={`/fullpost/${id}`}>

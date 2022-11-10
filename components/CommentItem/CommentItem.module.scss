@@ -1,0 +1,27 @@
+.commentItem {
+  display: grid;
+  grid-template-areas:
+    'a n d'
+    'a t t';
+  grid-template-columns: 80px 300px 20px;
+  overflow-x: scroll;
+  margin-bottom: 15px;
+}
+
+.name {
+  grid-area: n;
+}
+
+.text {
+  grid-area: t;
+}
+
+.avatar {
+  grid-area: a;
+  width: 50px;
+  border-radius: 5px;
+}
+
+.deleteButton {
+  grid-area: d;
+}

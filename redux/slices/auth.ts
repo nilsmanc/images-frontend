@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { fetchAuth, fetchAuthMe, fetchRegister } from '../asyncActions'
 import { RootState } from '../store'
 import { AuthData, AuthSliceState, Status } from './types'
@@ -21,7 +22,7 @@ const authSlice = createSlice({
       state.status = Status.LOADING
       state.data = null
     })
-    builder.addCase(fetchAuth.fulfilled, (state, action: PayloadAction<AuthData>) => {
+    builder.addCase(fetchAuth.fulfilled, (state, action: PayloadAction<any>) => {
       state.status = Status.LOADED
       state.data = action.payload
     })
@@ -45,7 +46,7 @@ const authSlice = createSlice({
       state.status = Status.LOADING
       state.data = null
     })
-    builder.addCase(fetchRegister.fulfilled, (state, action: PayloadAction<AuthData>) => {
+    builder.addCase(fetchRegister.fulfilled, (state, action: PayloadAction<any>) => {
       state.status = Status.LOADED
       state.data = action.payload
     })

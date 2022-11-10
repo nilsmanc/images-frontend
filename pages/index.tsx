@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+
 import ImagesGrid from '../components/ImagesGrid'
 import { fetchPosts, fetchTags } from '../redux/asyncActions'
 import { postsSelector } from '../redux/slices/posts'
 import { useAppDispatch } from '../redux/store'
+
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -18,6 +20,7 @@ export default function Home() {
     dispatch(fetchPosts())
     dispatch(fetchTags())
   }, [])
+
   return (
     <div className={styles.container}>
       <Head>

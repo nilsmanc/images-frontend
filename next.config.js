@@ -2,11 +2,6 @@
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
-}
-
-module.exports = nextConfig
-
-module.exports = {
   images: {
     remotePatterns: [
       {
@@ -20,3 +15,5 @@ module.exports = {
     ],
   },
 }
+
+module.exports = nextConfig

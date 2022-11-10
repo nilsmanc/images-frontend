@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { fetchPosts, fetchRemovePost, fetchTags, fetchUserPosts } from '../asyncActions'
 import { RootState } from '../store'
 import { PostType, PostsSliceState, Status } from './types'

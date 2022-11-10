@@ -1,0 +1,28 @@
+.wrapper {
+  display: grid;
+  width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.preview {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.cancel {
+  text-align: center;
+}
+
+.upload {
+  margin-bottom: 20px;
+}
+
+.delete {
+  margin: 20px 0;
+}
+
+.tags {
+  margin-bottom: 20px;
+}
