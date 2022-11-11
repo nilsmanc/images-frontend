@@ -1,8 +1,15 @@
-.root {
+.wrapper {
   width: 400px;
   padding: 50px;
   border: 1px solid #dedede;
   margin: 50px auto;
+  @media (max-width: 768px) {
+    width: 300px;
+  }
+
+  @media (max-width: 375px) {
+    width: 250px;
+  }
 }
 
 .field {
@@ -29,6 +36,9 @@
 .avatarInput {
   margin-bottom: 20px;
   width: 100%;
+  @media (max-width: 375px) {
+    font-size: 12px;
+  }
 }
 
 .signUp {

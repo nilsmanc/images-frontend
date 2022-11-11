@@ -31,7 +31,9 @@ const Profile = ({ person }) => {
       <Paper className={styles.paper}>
         <UserInfo person={person} />
       </Paper>
-      <ImagesGrid />
+      <div className={styles.grid}>
+        <ImagesGrid />
+      </div>
     </div>
   )
 }

@@ -6,14 +6,46 @@
     'i b';
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 100px 1fr;
-  height: 500px;
+  height: 600px;
   background-color: white;
   border-top-right-radius: 5px;
   border-top-right-radius: 5px;
+  @media (max-width: 1280px) {
+    grid-template-areas:
+      'i'
+      'd'
+      'c'
+      'b';
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    height: 900px;
+    width: 600px;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+    width: 400px;
+  }
+  @media (max-width: 500px) {
+    width: 350px;
+    height: 700px;
+  }
 }
 
 .image {
   grid-area: i;
+  @media (max-width: 1280px) {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+    width: 400px;
+    height: 400px;
+  }
+  @media (max-width: 500px) {
+    width: 350px;
+    height: 350px;
+  }
 }
 
 .description {
@@ -44,4 +76,12 @@
 
 .postButtons {
   margin: 25px 10px;
+}
+
+.commentInput {
+  width: 80%;
+}
+
+.sendButton {
+  margin-top: 10px;
 }

@@ -74,8 +74,8 @@ const Registration = () => {
   }
 
   return (
-    <Paper classes={{ root: styles.root }}>
-      <Typography classes={{ root: styles.title }} variant='h5'>
+    <Paper className={styles.wrapper}>
+      <Typography className={styles.title} variant='h5'>
         Sign up
       </Typography>
       <div className={styles.avatar}>
@@ -108,7 +108,6 @@ const Registration = () => {
           label='Password'
           fullWidth
         />
-
         <div>
           <Button
             className={styles.avatarInput}

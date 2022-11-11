@@ -16,6 +16,7 @@ import { TextField } from '@mui/material'
 import { useAppDispatch } from '../../redux/store'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import { useRouter } from 'next/router'
 
 export const getServerSideProps = async (context) => {
   const { id } = context.params
@@ -31,6 +32,8 @@ const FullPost = ({ post }) => {
   const comments = useSelector(commentsSelector)
   const user = useSelector(selectAuthUser)
 
+  const router = useRouter()
+
   const [commentText, setCommentText] = useState('')
 
   const dispatch = useAppDispatch()
@@ -45,8 +48,10 @@ const FullPost = ({ post }) => {
     dispatch(fetchPostComments(post._id))
   }, [])
 
-  const clickHandler = () => {
+  const deleteHandler = () => {
     dispatch(fetchRemovePost(post._id))
+
+    router.push('/')
   }
 
   const changeTextHandler = () => {
@@ -84,15 +89,13 @@ const FullPost = ({ post }) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.image}>
-        <Image src={post.imageUrl} alt='image' width={500} height={500} />
-      </div>
+      <Image className={styles.image} src={post.imageUrl} alt='image' width={600} height={600} />
       <div className={styles.description}>
         <Typography className={styles.text}>{post.description}</Typography>
         <div className={styles.postButtons}>
           {isEditable && (
             <div>
-              <Button onClick={clickHandler}>
+              <Button onClick={deleteHandler}>
                 <DeleteIcon color='action' />
               </Button>
               <Link href={`/editpost/${post._id}`}>
@@ -110,8 +113,15 @@ const FullPost = ({ post }) => {
         ))}
       </div>
       <div className={styles.commentButtons}>
-        <TextField id='commentField' value={commentText} onChange={changeTextHandler} />
-        <Button onClick={sendHandler}>Send</Button>
+        <TextField
+          className={styles.commentInput}
+          id='commentField'
+          value={commentText}
+          onChange={changeTextHandler}
+        />
+        <Button className={styles.sendButton} onClick={sendHandler}>
+          Send
+        </Button>
       </div>
     </div>
   )

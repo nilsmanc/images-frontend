@@ -13,10 +13,10 @@ const ImagesGrid = () => {
 
   return (
     <div className={styles.paper}>
-      <Box className={styles.box} sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
+      <Box className={styles.box}>
+        <Grid container>
           {posts.map((post: PostType, i: number) => (
-            <Grid key={i} item xs={4}>
+            <Grid key={i} xs={12} sm={12} md={6} lg={4}>
               <Post imageUrl={post.imageUrl} id={post._id} />
             </Grid>
           ))}

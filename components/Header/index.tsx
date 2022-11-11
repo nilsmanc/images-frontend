@@ -65,7 +65,9 @@ function ResponsiveAppBar() {
     <AppBar position='relative'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <CameraIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} fontSize='large' />
+          <Link href='/'>
+            <CameraIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} fontSize='large' />
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
@@ -100,7 +102,6 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <CameraIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link href={page.route}>
