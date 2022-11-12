@@ -11,7 +11,7 @@ const ImagesGrid = ({ posts }) => {
       <Box className={styles.box}>
         <Grid container>
           {posts.map((post: PostType, i: number) => (
-            <Grid key={i} xs={12} sm={12} md={6} lg={4}>
+            <Grid item key={i} xs={12} sm={12} md={6} lg={4}>
               <Post post={post} />
             </Grid>
           ))}

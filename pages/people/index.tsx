@@ -9,17 +9,15 @@ import { Divider } from '@mui/material'
 const People = ({ users }) => {
   return (
     <Paper className={styles.paper}>
-      <div>
-        <div className={styles.list}>
-          {users.map((user: UserType) => (
-            <div>
-              <div className={styles.item}>
-                <PersonCard user={user} />
-              </div>
-              <Divider />
+      <div className={styles.list}>
+        {users.map((user: UserType) => (
+          <div key={user._id}>
+            <div className={styles.item}>
+              <PersonCard user={user} />
             </div>
-          ))}
-        </div>
+            <Divider />
+          </div>
+        ))}
       </div>
     </Paper>
   )

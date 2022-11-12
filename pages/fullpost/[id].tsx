@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import instance from '../../axios'
 import { commentsSelector } from '../../redux/slices/comments'
@@ -19,6 +20,7 @@ import EditIcon from '@mui/icons-material/Edit'
 
 const FullPost = ({ post }) => {
   const [commentText, setCommentText] = useState('')
+  const router = useRouter()
 
   const dispatch = useAppDispatch()
 
@@ -33,7 +35,8 @@ const FullPost = ({ post }) => {
 
   const deleteHandler = () => {
     dispatch(fetchRemovePost(post._id))
-    alert('Post deleted')
+
+    router.push(`/profile/${user._id}`)
   }
 
   const changeTextHandler = () => {
@@ -71,7 +74,14 @@ const FullPost = ({ post }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Image className={styles.image} src={post.imageUrl} alt='image' width={600} height={600} />
+      <Image
+        className={styles.image}
+        src={post.imageUrl}
+        alt='image'
+        width={600}
+        height={600}
+        priority={true}
+      />
       <div className={styles.description}>
         <Typography className={styles.text}>{post.description}</Typography>
         <div className={styles.postButtons}>
@@ -91,7 +101,7 @@ const FullPost = ({ post }) => {
       </div>
       <div className={styles.commentItems} id='comments'>
         {comments?.map((comment) => (
-          <CommentItem comment={comment} user={user} />
+          <CommentItem key={comment._id} comment={comment} user={user} />
         ))}
       </div>
       <div className={styles.commentButtons}>
