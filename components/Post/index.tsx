@@ -3,11 +3,11 @@ import Link from 'next/link'
 
 import styles from './Post.module.scss'
 
-const Post = ({ imageUrl, id }) => {
+const Post = ({ post }) => {
   return (
     <div>
-      <Link href={`/fullpost/${id}`}>
-        <Image className={styles.image} src={imageUrl} alt='a' width={300} height={300} />
+      <Link href={`/fullpost/${post._id}`}>
+        <Image className={styles.image} src={post.imageUrl} alt='image' width={300} height={300} />
       </Link>
     </div>
   )

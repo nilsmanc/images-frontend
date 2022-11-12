@@ -1,23 +1,18 @@
-import { useSelector } from 'react-redux'
-
 import Post from '../Post'
-import { postItemsSelector } from '../../redux/slices/posts'
 import { PostType } from '../../redux/slices/types'
 
 import styles from './ImagesGrid.module.scss'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
-const ImagesGrid = () => {
-  const posts = useSelector(postItemsSelector)
-
+const ImagesGrid = ({ posts }) => {
   return (
     <div className={styles.paper}>
       <Box className={styles.box}>
         <Grid container>
           {posts.map((post: PostType, i: number) => (
             <Grid key={i} xs={12} sm={12} md={6} lg={4}>
-              <Post imageUrl={post.imageUrl} id={post._id} />
+              <Post post={post} />
             </Grid>
           ))}
         </Grid>

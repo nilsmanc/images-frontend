@@ -19,13 +19,13 @@ import Avatar from '@mui/material/Avatar'
 const Registration = () => {
   const [imageUrl, setImageUrl] = useState('')
 
-  const inputFileRef = useRef(null)
-
-  const isAuth = useSelector(selectIsAuth)
-
   const dispatch = useAppDispatch()
 
   const router = useRouter()
+
+  const isAuth = useSelector(selectIsAuth)
+
+  const inputFileRef = useRef(null)
 
   const {
     register,
@@ -47,6 +47,7 @@ const Registration = () => {
     if (!data.payload) {
       return alert('Failed to register')
     }
+
     if ('token' in data.payload) {
       window.localStorage.setItem('token', data.payload.token)
     }

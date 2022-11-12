@@ -1,41 +1,30 @@
-import { useEffect } from 'react'
-
-import ImagesGrid from '../../components/ImagesGrid'
 import UserInfo from '../../components/UserInfo'
-import { fetchTags, fetchUserPosts } from '../../redux/asyncActions'
-import { useAppDispatch } from '../../redux/store'
+import ImagesGrid from '../../components/ImagesGrid'
+import instance from '../../axios'
 
 import styles from './Profile.module.scss'
 import Paper from '@mui/material/Paper'
 
-export const getServerSideProps = async (context) => {
-  const { id } = context.params
-
-  const response = await fetch(`http://localhost:4444/users/${id}`)
-
-  const data = await response.json()
-
-  return { props: { person: data } }
-}
-
-const Profile = ({ person }) => {
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(fetchUserPosts(person._id))
-    dispatch(fetchTags())
-  }, [])
-
+const Profile = ({ user, posts }) => {
   return (
     <div>
-      <Paper className={styles.paper}>
-        <UserInfo person={person} />
+      <Paper className={styles.infoPaper}>
+        <UserInfo person={user} />
       </Paper>
-      <div className={styles.grid}>
-        <ImagesGrid />
-      </div>
+      <ImagesGrid posts={posts} />
     </div>
   )
 }
 
 export default Profile
+
+export const getServerSideProps = async ({ params }) => {
+  const { id } = params
+
+  const [user, posts] = await Promise.all([
+    instance.get(`/users/${id}`).then((res) => res.data),
+    instance.get(`/posts/user/${id}`).then((res) => res.data),
+  ])
+
+  return { props: { user, posts } }
+}

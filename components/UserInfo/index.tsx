@@ -7,17 +7,13 @@ const UserInfo = ({ person }) => {
   return (
     <div className={styles.wrapper}>
       <Typography className={styles.name}>{person.fullName}</Typography>
-      {person.avatarUrl ? (
-        <Image
-          src={person.avatarUrl}
-          alt='avatar'
-          width={300}
-          height={300}
-          className={styles.avatar}
-        />
-      ) : (
-        <div className={styles.skeleton}></div>
-      )}
+      <Image
+        src={person.avatarUrl}
+        alt='avatar'
+        width={300}
+        height={300}
+        className={styles.avatar}
+      />
     </div>
   )
 }

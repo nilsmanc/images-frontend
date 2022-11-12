@@ -62,7 +62,7 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position='relative'>
+    <AppBar className={styles.wrapper} position='relative'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Link href='/'>
@@ -97,9 +97,18 @@ function ResponsiveAppBar() {
               }}>
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page.name}</Typography>
+                  <Link href={page.route}>
+                    <Typography textAlign='center'>{page.name}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
+              {user && (
+                <MenuItem key={'addpost'} onClick={handleCloseNavMenu}>
+                  <Link href={'/addpost'}>
+                    <Typography> Add post</Typography>
+                  </Link>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

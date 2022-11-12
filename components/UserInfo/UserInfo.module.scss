@@ -12,9 +12,16 @@
 .avatar {
   border-radius: 300px;
   grid-area: a;
-  @media (max-width: 768px) {
+
+  @media (max-width: 899px) {
     width: 120px;
     height: 120px;
+    margin-right: 30px;
+  }
+
+  @media (max-width: 600px) {
+    width: 100px;
+    height: 100px;
     margin-right: 30px;
   }
 }

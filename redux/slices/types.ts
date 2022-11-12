@@ -30,8 +30,8 @@ export type CommentType = {
   likes: number
   user: UserType
   post: string
-  createdAt: string
-  updatedAt: string
+  createdAt?: string
+  updatedAt?: string
   __v: number
 }
 
@@ -54,7 +54,6 @@ export type UserType = {
 export interface PostsSliceState {
   posts: {
     items: PostType[]
-    status: Status
   }
   tags: {
     items: Array<string>

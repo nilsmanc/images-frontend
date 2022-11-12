@@ -16,42 +16,24 @@ import { TextField } from '@mui/material'
 import { useAppDispatch } from '../../redux/store'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { useRouter } from 'next/router'
-
-export const getServerSideProps = async (context) => {
-  const { id } = context.params
-
-  const response = await fetch(`http://localhost:4444/posts/${id}`)
-
-  const data = await response.json()
-
-  return { props: { post: data } }
-}
 
 const FullPost = ({ post }) => {
-  const comments = useSelector(commentsSelector)
-  const user = useSelector(selectAuthUser)
-
-  const router = useRouter()
-
   const [commentText, setCommentText] = useState('')
 
   const dispatch = useAppDispatch()
 
+  const comments = useSelector(commentsSelector)
+  const user = useSelector(selectAuthUser)
+
   const isEditable = Boolean(user?._id === post.user._id)
 
   useEffect(() => {
-    instance.get(`posts/${post._id}`).catch((err) => {
-      console.warn(err)
-      alert('Error in getting post')
-    })
     dispatch(fetchPostComments(post._id))
   }, [])
 
   const deleteHandler = () => {
     dispatch(fetchRemovePost(post._id))
-
-    router.push('/')
+    alert('Post deleted')
   }
 
   const changeTextHandler = () => {
@@ -128,3 +110,11 @@ const FullPost = ({ post }) => {
 }
 
 export default FullPost
+
+export const getServerSideProps = async ({ params }) => {
+  const { id } = params
+
+  const { data } = await instance.get(`/posts/${id}`)
+
+  return { props: { post: data } }
+}

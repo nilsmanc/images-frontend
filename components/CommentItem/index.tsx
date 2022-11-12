@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 const CommentItem = ({ comment, user }) => {
   const dispatch = useAppDispatch()
 
-  const deleteHandler = async (id) => {
+  const deleteHandler = async (id: number) => {
     dispatch(fetchRemoveComment(id))
   }
 

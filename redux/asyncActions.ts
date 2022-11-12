@@ -2,14 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import instance from '../axios'
 
-import {
-  CommentType,
-  LoginData,
-  LoginParams,
-  PostType,
-  RegisterParams,
-  UserType,
-} from './slices/types'
+import { CommentType, LoginData, LoginParams, RegisterParams, UserType } from './slices/types'
 
 export const fetchAuth = createAsyncThunk<LoginData, LoginParams>(
   'auth/fetchAuth',
@@ -32,11 +25,6 @@ export const fetchAuthMe = createAsyncThunk<UserType>('auth/fetchAuthMe', async 
   return data
 })
 
-export const fetchPosts = createAsyncThunk<PostType[]>('posts/fetchPosts', async () => {
-  const { data } = await instance.get('/posts')
-  return data
-})
-
 export const fetchTags = createAsyncThunk<Array<string>>('posts/fetchTags', async () => {
   const { data } = await instance.get('/tags')
   return data
@@ -44,19 +32,6 @@ export const fetchTags = createAsyncThunk<Array<string>>('posts/fetchTags', asyn
 
 export const fetchRemovePost = createAsyncThunk<void, number>('posts/fetchRemovePost', async (id) =>
   instance.delete(`/posts/${id}`),
-)
-
-export const fetchPeople = createAsyncThunk<UserType[]>('people/fetchPeople', async () => {
-  const { data } = await instance.get('/users')
-  return data
-})
-
-export const fetchUserPosts = createAsyncThunk<PostType[], number>(
-  'posts/fetchUserPosts',
-  async (id) => {
-    const { data } = await instance.get(`/posts/user/${id}`)
-    return data
-  },
 )
 
 export const fetchPostComments = createAsyncThunk<CommentType[], number>(
