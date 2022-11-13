@@ -32,7 +32,7 @@ const AddPost = () => {
       const { data } = await instance.post('/upload', formData)
 
       setImageUrl(
-        'http://localhost:4444' + data.url,
+        'https://images-backend-production.up.railway.app' + data.url,
         // ('https://images-backend-production.up.railway.app' || 'http://localhost:4444') + data.url,
       )
     } catch (err) {

@@ -81,7 +81,7 @@ const Registration = () => {
       </Typography>
       <div className={styles.avatar}>
         <Avatar
-          src={`http://localhost:4444${imageUrl}`}
+          src={`https://images-backend-production.up.railway.app${imageUrl}`}
           // src={
           //   `https://images-backend-production.up.railway.app${imageUrl}` ||
           //   `http://localhost:4444${imageUrl}`
@@ -93,7 +93,7 @@ const Registration = () => {
         <Button
           className={styles.avatarInput}
           {...register('avatarUrl', { required: 'Upload avatar' })}
-          value={`http://localhost:4444${imageUrl}`}
+          value={`https://images-backend-production.up.railway.app${imageUrl}`}
           // value={
           //   `https://images-backend-production.up.railway.app${imageUrl}` ||
           //   `http://localhost:4444${imageUrl}`
