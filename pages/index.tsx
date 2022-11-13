@@ -6,8 +6,6 @@ import { fetchPosts } from '../redux/asyncActions'
 import { postItemsSelector } from '../redux/slices/posts'
 import { useAppDispatch } from '../redux/store'
 
-import styles from '../styles/Home.module.scss'
-
 export default function Home() {
   const dispatch = useAppDispatch()
 
@@ -18,7 +16,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className={styles.container}>
+    <div>
       <ImagesGrid posts={posts} />
     </div>
   )
