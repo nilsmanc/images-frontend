@@ -10,7 +10,7 @@ import { selectAuthUser } from '../../redux/slices/auth'
 import { fetchPostComments, fetchRemovePost } from '../../redux/asyncActions'
 import CommentItem from '../../components/CommentItem'
 
-import styles from './FullPost.module.scss'
+import styles from './FullPostPage.module.scss'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { TextField } from '@mui/material'
