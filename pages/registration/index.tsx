@@ -80,8 +80,34 @@ const Registration = () => {
         Sign up
       </Typography>
       <div className={styles.avatar}>
-        <Avatar sx={{ width: 100, height: 100 }} />
+        <Avatar
+          src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
+          sx={{ width: 100, height: 100 }}
+        />
       </div>
+      <div>
+        <Button
+          className={styles.avatarInput}
+          {...register('avatarUrl', { required: 'Upload avatar' })}
+          value={`${process.env.REACT_APP_API_URL}${imageUrl}`}
+          onClick={() => inputFileRef.current.click()}
+          variant='outlined'
+          size='large'>
+          Upload photo
+        </Button>
+        <input ref={inputFileRef} type='file' onChange={handleChangeFile} hidden />
+      </div>
+      {imageUrl && (
+        <>
+          <Button
+            className={styles.deleteButton}
+            variant='contained'
+            color='error'
+            onClick={onClickRemoveImage}>
+            Delete
+          </Button>
+        </>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           error={Boolean(errors.fullName?.message)}
@@ -109,18 +135,7 @@ const Registration = () => {
           label='Password'
           fullWidth
         />
-        <div>
-          <Button
-            className={styles.avatarInput}
-            {...register('avatarUrl', { required: 'Upload avatar' })}
-            value={`http://localhost:4444${imageUrl}`}
-            onClick={() => inputFileRef.current.click()}
-            variant='outlined'
-            size='large'>
-            Upload photo
-          </Button>
-          <input ref={inputFileRef} type='file' onChange={handleChangeFile} hidden />
-        </div>
+
         <Button
           className={styles.signUp}
           disabled={!isValid}
@@ -130,18 +145,6 @@ const Registration = () => {
           fullWidth>
           Sign up
         </Button>
-        {imageUrl && (
-          <>
-            <img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt='Uploaded' />
-            <Button
-              className={styles.deleteButton}
-              variant='contained'
-              color='error'
-              onClick={onClickRemoveImage}>
-              Delete
-            </Button>
-          </>
-        )}
       </form>
     </Paper>
   )

@@ -17,6 +17,7 @@ import { TextField } from '@mui/material'
 import { useAppDispatch } from '../../redux/store'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
 
 const FullPost = ({ post }) => {
   const [commentText, setCommentText] = useState('')
@@ -82,8 +83,13 @@ const FullPost = ({ post }) => {
         height={600}
         priority={true}
       />
+      <Typography className={styles.viewsCount}>
+        <RemoveRedEyeOutlinedIcon className={styles.eyeIcon} fontSize='small' />
+        {post.viewsCount}
+      </Typography>
       <div className={styles.description}>
         <Typography className={styles.text}>{post.description}</Typography>
+
         <div className={styles.postButtons}>
           {isEditable && (
             <div>

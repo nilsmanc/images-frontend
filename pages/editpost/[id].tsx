@@ -24,10 +24,14 @@ const AddPost = () => {
   const handleChangeFile = async (event) => {
     try {
       const formData = new FormData()
+
       const file = event.target.files[0]
+
       formData.append('image', file)
+
       const { data } = await instance.post('/upload', formData)
-      setImageUrl('http://localhost:4444' + data.url)
+
+      setImageUrl(process.env.REACT_APP_API_URL + data.url)
     } catch (err) {
       console.warn(err)
       alert('Failed to upload file')
@@ -37,6 +41,7 @@ const AddPost = () => {
   useEffect(() => {
     instance(`/posts/${id}`)
       .then(({ data }) => {
+        console.log(data)
         setDescription(data.description)
         setImageUrl(data.imageUrl)
         setTags(data.tags.join(','))
@@ -93,6 +98,7 @@ const AddPost = () => {
       )}
       <TextField
         className={styles.description}
+        value={description}
         placeholder='Description'
         onChange={(e) => setDescription(e.target.value)}
         variant='standard'

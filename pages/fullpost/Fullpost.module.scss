@@ -2,10 +2,11 @@
   display: grid;
   grid-template-areas:
     'i d'
+    'i v'
     'i c'
     'i b';
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 100px 40px 370px 90px;
   height: 600px;
   background-color: white;
   border-top-right-radius: 5px;
@@ -15,10 +16,11 @@
     grid-template-areas:
       'i'
       'd'
+      'v'
       'c'
       'b';
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 40px 1fr 1fr;
     height: 900px;
     width: 600px;
     margin: 0 auto;
@@ -26,6 +28,7 @@
 
   @media (max-width: 768px) {
     width: 400px;
+    height: 750px;
   }
 
   @media (max-width: 500px) {
@@ -52,6 +55,12 @@
     width: 350px;
     height: 350px;
   }
+}
+
+.viewsCount {
+  grid-area: v;
+  color: black;
+  margin-left: 25px;
 }
 
 .description {
@@ -85,9 +94,13 @@
 }
 
 .commentInput {
-  width: 80%;
+  width: 85%;
 }
 
 .sendButton {
   margin-top: 10px;
+}
+
+.eyeIcon {
+  padding-top: 5px;
 }

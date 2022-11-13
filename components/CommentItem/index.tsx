@@ -5,6 +5,7 @@ import styles from './CommentItem.module.scss'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import DeleteIcon from '@mui/icons-material/Delete'
+import Link from 'next/link'
 
 const CommentItem = ({ comment, user }) => {
   const dispatch = useAppDispatch()
@@ -19,7 +20,9 @@ const CommentItem = ({ comment, user }) => {
         <b>{comment.user?.fullName}</b>
       </Typography>
       <Typography className={styles.text}>{comment.text}</Typography>
-      <img className={styles.avatar} src={comment.user?.avatarUrl} />
+      <Link className={styles.avatarLink} href={`/profile/${comment.user._id}`}>
+        <img className={styles.avatar} src={comment.user?.avatarUrl} />
+      </Link>
       {user?._id === comment.user?._id && (
         <Button className={styles.deleteButton} onClick={() => deleteHandler(comment._id)}>
           <DeleteIcon color='action' fontSize='small' />
