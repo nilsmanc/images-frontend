@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'https://images-backend-production.up.railway.app',
+  baseURL: 'http://localhost:4444',
+  //baseURL: 'https://images-backend-production.up.railway.app' || 'http://localhost:4444',
 })
 
 instance.interceptors.request.use((config) => {

@@ -36,8 +36,14 @@ export type CommentType = {
 }
 
 export interface PeopleSliceState {
-  items: UserType[]
-  status: Status
+  people: {
+    items: UserType[]
+    status: Status
+  }
+  person: {
+    item: any
+    status: Status
+  }
 }
 
 export type UserType = {
@@ -54,9 +60,14 @@ export type UserType = {
 export interface PostsSliceState {
   posts: {
     items: PostType[]
+    status: Status
   }
   tags: {
     items: Array<string>
+    status: Status
+  }
+  post: {
+    item: any
     status: Status
   }
 }

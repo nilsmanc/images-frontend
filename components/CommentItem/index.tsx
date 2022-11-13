@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { fetchRemoveComment } from '../../redux/asyncActions'
 import { useAppDispatch } from '../../redux/store'
 
@@ -5,7 +7,6 @@ import styles from './CommentItem.module.scss'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import DeleteIcon from '@mui/icons-material/Delete'
-import Link from 'next/link'
 
 const CommentItem = ({ comment, user }) => {
   const dispatch = useAppDispatch()

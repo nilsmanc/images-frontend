@@ -19,13 +19,13 @@ import Avatar from '@mui/material/Avatar'
 const Registration = () => {
   const [imageUrl, setImageUrl] = useState('')
 
-  const dispatch = useAppDispatch()
-
-  const router = useRouter()
-
   const isAuth = useSelector(selectIsAuth)
 
   const inputFileRef = useRef(null)
+
+  const router = useRouter()
+
+  const dispatch = useAppDispatch()
 
   const {
     register,
@@ -81,7 +81,11 @@ const Registration = () => {
       </Typography>
       <div className={styles.avatar}>
         <Avatar
-          src={`https://images-backend-production.up.railway.app${imageUrl}`}
+          src={`http://localhost:4444${imageUrl}`}
+          // src={
+          //   `https://images-backend-production.up.railway.app${imageUrl}` ||
+          //   `http://localhost:4444${imageUrl}`
+          // }
           sx={{ width: 100, height: 100 }}
         />
       </div>
@@ -89,7 +93,11 @@ const Registration = () => {
         <Button
           className={styles.avatarInput}
           {...register('avatarUrl', { required: 'Upload avatar' })}
-          value={`https://images-backend-production.up.railway.app${imageUrl}`}
+          value={`http://localhost:4444${imageUrl}`}
+          // value={
+          //   `https://images-backend-production.up.railway.app${imageUrl}` ||
+          //   `http://localhost:4444${imageUrl}`
+          // }
           onClick={() => inputFileRef.current.click()}
           variant='outlined'
           size='large'>
