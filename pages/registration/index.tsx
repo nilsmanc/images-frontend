@@ -135,7 +135,6 @@ const Registration = () => {
           label='Password'
           fullWidth
         />
-
         <Button
           className={styles.signUp}
           disabled={!isValid}
