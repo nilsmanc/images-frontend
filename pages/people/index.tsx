@@ -12,15 +12,7 @@ import { peopleSelector } from '../../redux/slices/people'
 import { useAppDispatch } from '../../redux/store'
 import { fetchPeople } from '../../redux/asyncActions'
 
-const People = () => {
-  const dispatch = useAppDispatch()
-
-  const users = useSelector(peopleSelector)
-
-  useEffect(() => {
-    dispatch(fetchPeople())
-  }, [])
-
+const People = ({ users }) => {
   return (
     <Paper className={styles.paper}>
       <div className={styles.list}>
@@ -38,3 +30,11 @@ const People = () => {
 }
 
 export default People
+
+export const getServerSideProps = async () => {
+  const { data } = await instance.get('/users')
+
+  return {
+    props: { users: data },
+  }
+}
