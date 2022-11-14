@@ -38,7 +38,7 @@ const FullPost = ({ post }) => {
   const deleteHandler = () => {
     dispatch(fetchRemovePost(post._id))
 
-    router.push(`/`)
+    router.push(`/profile/${user._id}`)
   }
 
   const changeTextHandler = () => {
