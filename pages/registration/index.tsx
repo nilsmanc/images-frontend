@@ -82,10 +82,6 @@ const Registration = () => {
       <div className={styles.avatar}>
         <Avatar
           src={`https://images-backend-production.up.railway.app${imageUrl}`}
-          // src={
-          //   `https://images-backend-production.up.railway.app${imageUrl}` ||
-          //   `http://localhost:4444${imageUrl}`
-          // }
           sx={{ width: 100, height: 100 }}
         />
       </div>
@@ -94,10 +90,6 @@ const Registration = () => {
           className={styles.avatarInput}
           {...register('avatarUrl', { required: 'Upload avatar' })}
           value={`https://images-backend-production.up.railway.app${imageUrl}`}
-          // value={
-          //   `https://images-backend-production.up.railway.app${imageUrl}` ||
-          //   `http://localhost:4444${imageUrl}`
-          // }
           onClick={() => inputFileRef.current.click()}
           variant='outlined'
           size='large'>

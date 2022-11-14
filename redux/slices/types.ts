@@ -35,17 +35,6 @@ export type CommentType = {
   __v: number
 }
 
-export interface PeopleSliceState {
-  people: {
-    items: UserType[]
-    status: Status
-  }
-  person: {
-    item: any
-    status: Status
-  }
-}
-
 export type UserType = {
   _id: string
   fullName: string
@@ -64,10 +53,6 @@ export interface PostsSliceState {
   }
   tags: {
     items: Array<string>
-    status: Status
-  }
-  post: {
-    item: any
     status: Status
   }
 }

@@ -7,9 +7,8 @@ import { useRouter } from 'next/router'
 import instance from '../../axios'
 import { commentsSelector } from '../../redux/slices/comments'
 import { selectAuthUser } from '../../redux/slices/auth'
-import { fetchPost, fetchPostComments, fetchRemovePost } from '../../redux/asyncActions'
+import { fetchPostComments, fetchRemovePost } from '../../redux/asyncActions'
 import CommentItem from '../../components/CommentItem'
-import { postItemSelector } from '../../redux/slices/posts'
 
 import styles from './FullPost.module.scss'
 import Typography from '@mui/material/Typography'
@@ -20,27 +19,21 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
 
-const FullPost = () => {
+const FullPost = ({ post }) => {
   const [commentText, setCommentText] = useState('')
-
-  const router = useRouter()
-  const params = router.query
-  const id = params.id
 
   const dispatch = useAppDispatch()
 
-  const post = useSelector(postItemSelector)
+  const router = useRouter()
+
   const comments = useSelector(commentsSelector)
   const user = useSelector(selectAuthUser)
 
-  const isEditable = Boolean(user?._id === post?.user?._id)
+  const isEditable = Boolean(user?._id === post.user._id)
 
   useEffect(() => {
-    if (router.isReady) {
-      dispatch(fetchPost(id))
-      dispatch(fetchPostComments(id))
-    }
-  }, [router.isReady])
+    dispatch(fetchPostComments(post._id))
+  }, [])
 
   const deleteHandler = () => {
     dispatch(fetchRemovePost(post._id))
@@ -137,3 +130,11 @@ const FullPost = () => {
 }
 
 export default FullPost
+
+export const getServerSideProps = async ({ params }) => {
+  const { id } = params
+
+  const { data } = await instance.get(`/posts/${id}`)
+
+  return { props: { post: data } }
+}

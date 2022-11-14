@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
+import Head from 'next/head'
 
 import Footer from '../Footer'
 import Header from '../Header'
 import { fetchAuthMe } from '../../redux/asyncActions'
 import { useAppDispatch } from '../../redux/store'
-import Head from 'next/head'
 
 const Layout = ({ children }) => {
   const dispatch = useAppDispatch()
