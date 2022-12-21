@@ -41,11 +41,6 @@ const FullPost = ({ post }) => {
     router.push(`/profile/${user._id}`)
   }
 
-  const changeTextHandler = () => {
-    const text = (document.getElementById('commentField') as HTMLInputElement).value
-    setCommentText(text)
-  }
-
   const sendHandler = async () => {
     try {
       const postId = post._id
@@ -115,9 +110,8 @@ const FullPost = ({ post }) => {
           <div className={styles.commentButtons}>
             <TextField
               className={styles.commentInput}
-              id='commentField'
               value={commentText}
-              onChange={changeTextHandler}
+              onChange={(e) => setCommentText(e.target.value)}
             />
             <Button className={styles.sendButton} onClick={sendHandler}>
               Send
