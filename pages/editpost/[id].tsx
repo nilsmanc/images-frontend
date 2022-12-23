@@ -31,7 +31,7 @@ const AddPost = () => {
 
       const { data } = await instance.post('/upload', formData)
 
-      setImageUrl('https://images-backend-production.up.railway.app' + data.url)
+      setImageUrl(process.env.REACT_APP_API_URL + data.url)
     } catch (err) {
       console.warn(err)
       alert('Failed to upload file')
