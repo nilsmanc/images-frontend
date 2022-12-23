@@ -81,7 +81,7 @@ const Registration = () => {
       </Typography>
       <div className={styles.avatar}>
         <Avatar
-          src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
+          src={`https://images-zjx1.onrender.com${imageUrl}`}
           sx={{ width: 100, height: 100 }}
         />
       </div>
@@ -89,7 +89,7 @@ const Registration = () => {
         <Button
           className={styles.avatarInput}
           {...register('avatarUrl', { required: 'Upload avatar' })}
-          value={`${process.env.REACT_APP_API_URL}${imageUrl}`}
+          value={`https://images-zjx1.onrender.com${imageUrl}`}
           onClick={() => inputFileRef.current.click()}
           variant='outlined'
           size='large'>
