@@ -31,7 +31,7 @@ const AddPost = () => {
 
       const { data } = await instance.post('/upload', formData)
 
-      setImageUrl('https://images-zjx1.onrender.com' + data.url)
+      setImageUrl(process.env.REACT_APP_API_URL + data.url)
     } catch (err) {
       console.warn(err)
       alert('Failed to upload file')
