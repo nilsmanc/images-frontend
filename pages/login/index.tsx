@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <Paper className={styles.wrapper}>
       <Typography className={styles.title} variant='h5'>
-        Sign in
+        Sign In
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -70,7 +70,7 @@ const Login = () => {
           fullWidth
         />
         <Button disabled={!isValid} type='submit' size='large' variant='contained' fullWidth>
-          Sign in
+          Sign In
         </Button>
       </form>
     </Paper>

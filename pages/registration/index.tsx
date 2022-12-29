@@ -77,7 +77,7 @@ const Registration = () => {
   return (
     <Paper className={styles.wrapper}>
       <Typography className={styles.title} variant='h5'>
-        Sign up
+        Sign Up
       </Typography>
       <div className={styles.avatar}>
         <Avatar
@@ -142,7 +142,7 @@ const Registration = () => {
           size='large'
           variant='contained'
           fullWidth>
-          Sign up
+          Sign Up
         </Button>
       </form>
     </Paper>
